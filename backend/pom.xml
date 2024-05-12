@@ -83,6 +83,12 @@
         	<version>7.0.2.Final</version>
     	</dependency>
 
+		<dependency>
+      		<groupId>com.jwt.service</groupId>
+      		<artifactId>auth</artifactId>
+      		<version>1.0.38</version>
+    	</dependency>
+
 	</dependencies>
 
 	<build>
