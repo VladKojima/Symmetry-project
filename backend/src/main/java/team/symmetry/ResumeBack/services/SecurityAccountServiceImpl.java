@@ -2,14 +2,15 @@ package team.symmetry.ResumeBack.services;
 
 import com.jwt.service.dto.authorization.Account;
 import com.jwt.service.service.SecurityAccountService;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import team.symmetry.ResumeBack.models.User;
 import team.symmetry.ResumeBack.repos.UserRepository;
 
-import org.springframework.stereotype.Component;
-
 import java.util.Optional;
 import java.util.Set;
+
 @Component
 @RequiredArgsConstructor
 public class SecurityAccountServiceImpl implements SecurityAccountService {
@@ -27,10 +28,7 @@ public class SecurityAccountServiceImpl implements SecurityAccountService {
         Account account = new Account();
         account.setLogin(user.getLogin());
         account.setPassword(user.getPassword());
-        Optional.ofNullable(user.getRole())
-                        .map(Set::of)
-                                .ifPresentOrElse(account::setRoles,
-                                        () -> account.setRoles(Set.of("USER")));
+        account.setRoles(Set.of(user.getRole()));
 
         return Optional.of(account);
     }
