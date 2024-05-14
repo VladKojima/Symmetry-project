@@ -3,6 +3,7 @@ package team.symmetry.ResumeBack.services;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import team.symmetry.ResumeBack.dto.UserDto;
 import team.symmetry.ResumeBack.dto.Student.Profile;
+import team.symmetry.ResumeBack.dto.Student.QuickProfile;
 import team.symmetry.ResumeBack.dto.Student.RegisterInfo;
 import team.symmetry.ResumeBack.exceptions.WrongDateException;
 import team.symmetry.ResumeBack.models.OtherInfo;
@@ -114,5 +116,18 @@ public class StudentService {
             throw new WrongDateException();
         }
 
+    }
+
+    public List<QuickProfile> getAll() {
+        return studentRepo.findAll().stream()
+                .map(student -> QuickProfile.builder()
+                        .name(student.getName())
+                        .surname(student.getSurname())
+                        .patronymic(student.getPatronymic())
+                        .tags(student.getTags())
+                        .photoPath(student.getPhotoPath())
+                        .hasExp(!student.getOtherInfo().getWorkExperience().isEmpty())
+                        .build())
+                .toList();
     }
 }

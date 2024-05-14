@@ -1,5 +1,7 @@
 package team.symmetry.ResumeBack.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +48,9 @@ public class AnnouncementService {
         ann.getStudents().add(student);
 
         announcementRepo.save(ann);
+    }
+
+    public List<Announcement> getAll() {
+        return announcementRepo.findAll();
     }    
 }
