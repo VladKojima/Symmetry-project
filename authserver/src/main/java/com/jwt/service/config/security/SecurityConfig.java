@@ -48,8 +48,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .addFilterBefore(corsFilter(), CookieFilter.class)
                                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/js/**", "/test/**").permitAll()
-                                .requestMatchers("/auth/logout").authenticated()
-                                .requestMatchers("/login/**", "/auth/**", "/user")
+                                .requestMatchers("api/auth/logout").authenticated()
+                                .requestMatchers("api/login/**", "api/auth/**", "api/user")
                                 .hasRole("ANONYMOUS")
                                 .anyRequest().authenticated()
                 );
