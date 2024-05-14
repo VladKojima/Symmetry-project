@@ -16,13 +16,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "moderators")
 @Data
-@AllArgsConstructor
+@Builder
 public class Moderator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,7 @@ public class Moderator {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "departmentid", nullable = false)
+    @JoinColumn(name = "departmentid", nullable = true)
     private Department workingPlace;
 
     @OneToMany(mappedBy = "moderator")
