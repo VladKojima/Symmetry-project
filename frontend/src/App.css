@@ -94,11 +94,7 @@ h2{
   background-color: #f0f0f0;
   box-shadow: 5px 5px 5px 0px rgba(156, 155, 155, 0.5);
 }
-.card-body{
-  
-  background-color: #282c34;
-  color: #f0f0f0;
-}
+
 .film_block:hover{
   transition: background-color 1s ease;
   background-color: #d8d8d8;
