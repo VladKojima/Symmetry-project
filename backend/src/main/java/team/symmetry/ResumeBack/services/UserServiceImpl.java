@@ -64,7 +64,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        userRepository.save(toUser(userDto));
+        User user = toUser(userDto);
+
+        //TODO: логика регистрации по ролям
+        switch (userDto.getRole()) {
+            case "MODERATOR":
+                Moderator moderator = moderatorRepo.save(Moderator.builder()
+                    .name(userDto.getName())
+                    .surname(userDto.getSurname())
+                    .phone("hello")
+                    .email("ya@ya.ru")
+                    .build()
+                );
+                user.setAccId(moderator.getId());
+                break;
+            case "STUDENT":
+
+                break;
+            case "CORPORATION":
+
+                break;
+            default:
+                break;
+        }
+
+        userRepository.save(user);
+
         return userDto;
     }
 
@@ -101,6 +126,7 @@ public class UserServiceImpl implements UserService {
                 .login(user.getLogin())
                 .password(user.getPassword())
                 .role(user.getRole().toString())
+                .accId(user.getAccId())
                 .build();
     }
 
@@ -111,6 +137,7 @@ public class UserServiceImpl implements UserService {
                 .login(userDto.getLogin())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .role(Roles.valueOf(userDto.getRole()))
+                .accId(userDto.getAccId())
                 .build();
     }
 

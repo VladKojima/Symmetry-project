@@ -17,5 +17,5 @@ public class UserDto {
     private String login;
     private String password;
     private String role;
-    private Integer flag;
+    private Integer accId;
 }

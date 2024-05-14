@@ -29,4 +29,12 @@ public class RoleService {
         
         return user.getAccId() == id;
     }
+
+    public int getId(){
+        JwtAuthentication auth = (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userRepository.findByLogin(auth.getLogin()).orElseThrow();
+        
+        return user.getAccId();
+    }
 }
