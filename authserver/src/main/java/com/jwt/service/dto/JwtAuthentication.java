@@ -21,13 +21,13 @@ public class JwtAuthentication implements Authentication {
 
     public JwtAuthentication(Account account) {
         this.login = account.getLogin();
-        this.roles = account.getRoles();
+        this.roles = account.getRoles().stream().map(r -> r.toString()).collect(Collectors.toSet());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role ->  "ROLE_" + role)
+                .map(role -> "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
     }

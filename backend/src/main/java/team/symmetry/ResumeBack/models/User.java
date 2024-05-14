@@ -1,4 +1,6 @@
 package team.symmetry.ResumeBack.models;
+import com.jwt.service.dto.authorization.Roles;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,18 +27,8 @@ public class User {
     @Column(name = "password")
     private String password;
     @Column(name = "role")
-    private String role = "user";
-    @Column(name = "flag")
-    private Integer flag = 0;
+    @Builder.Default
+    private Roles role = Roles.MODERATOR;
+    private Integer accId;
 
-
-    public User(String name, String lastname, String surname, String login, String password, String role, Integer flag) {
-        this.name = name;
-        this.lastname = lastname;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.flag = flag;
-        this.role = role;
-    }
 }

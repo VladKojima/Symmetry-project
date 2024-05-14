@@ -11,6 +11,6 @@ public class Account {
 
     private String password;
 
-    private Set<String> roles;
+    private Set<Roles> roles;
 
 }

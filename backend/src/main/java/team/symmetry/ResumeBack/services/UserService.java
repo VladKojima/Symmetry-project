@@ -1,9 +1,13 @@
 package team.symmetry.ResumeBack.services;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import team.symmetry.ResumeBack.dto.UserDto;
 import team.symmetry.ResumeBack.exceptions.UserNotFoundException;
+import team.symmetry.ResumeBack.models.Corporation;
+import team.symmetry.ResumeBack.models.Moderator;
+import team.symmetry.ResumeBack.models.Student;
 import team.symmetry.ResumeBack.models.User;
 
 public interface UserService {
@@ -16,10 +20,9 @@ public interface UserService {
     UserDto updateUser(Integer id, UserDto userDTO);
     UserDto getUserSession();
 
-    String singIn(String login, String password);
-    void signOut(String login);
-    Integer getInto(String login);
     UserDto toDTO(User user);
 
     User toUser(UserDto userDto);
+
+    public void onRole(User user, Consumer<Moderator> onModerator, Consumer<Student> onStudent, Consumer<Corporation> onCorporation);
 }

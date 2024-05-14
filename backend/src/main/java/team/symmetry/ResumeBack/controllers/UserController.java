@@ -41,11 +41,6 @@ public class UserController {
         return userService.updateUser(id, userDTO);
     }
 
-    @PostMapping("/signOut")
-    public void singOut(@RequestParam("login") String login){
-        userService.signOut(login);
-    }
-
     @GetMapping("/session")
     public UserDto getUserSession(){
         return userService.getUserSession();

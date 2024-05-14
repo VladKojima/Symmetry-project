@@ -1,17 +1,25 @@
 package team.symmetry.ResumeBack.services;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jwt.service.dto.authorization.Roles;
+
 import team.symmetry.ResumeBack.dto.UserDto;
 import team.symmetry.ResumeBack.exceptions.UserNotFoundException;
+import team.symmetry.ResumeBack.models.Corporation;
+import team.symmetry.ResumeBack.models.Moderator;
+import team.symmetry.ResumeBack.models.Student;
 import team.symmetry.ResumeBack.models.User;
+import team.symmetry.ResumeBack.repos.CorporationRepo;
+import team.symmetry.ResumeBack.repos.ModeratorRepo;
+import team.symmetry.ResumeBack.repos.StudentRepo;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,6 +29,13 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private AccountSession accountSession;
+
+    @Autowired
+    private ModeratorRepo moderatorRepo;
+    @Autowired
+    private CorporationRepo corporationRepo;
+    @Autowired
+    private StudentRepo studentRepo;
 
     @Override
     public List<UserDto> getUsers() {
@@ -46,7 +61,6 @@ public class UserServiceImpl implements UserService {
         }
         return toDTO(user.get());
     }
-
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -81,47 +95,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String singIn(String login, String password) {
-        User user = userRepository.findByLogin(login).orElse(null);
-        if (user == null) return null;
-        if (!user.getPassword().equals(password)) return null;
-        user.setFlag(1);
-        if (user.getRole() == null) {
-            user.setRole("USER");
-        }
-        userRepository.save(user);
-        return login;
-    }
-
-    @Override
-    public void signOut(String login) {
-        User user = userRepository.findByLogin(login).orElse(null);
-        if (user != null) {
-            user.setFlag(0);
-            userRepository.save(user);
-        }
-    }
-
-    @Override
-    public Integer getInto(String login) {
-        User user = userRepository.findByLogin(login).orElse(null);
-        if (user != null) {
-            return user.getFlag();
-        }
-        return null;
-    }
-
-    @Override
     public UserDto toDTO(User user) {
         return UserDto.builder()
                 .id(user.getId())
-                .name(user.getName())
-                .lastname(user.getLastname())
-                .surname(user.getSurname())
                 .login(user.getLogin())
                 .password(user.getPassword())
-                .role(user.getRole())
-                .flag(user.getFlag())
+                .role(user.getRole().toString())
                 .build();
     }
 
@@ -129,13 +108,27 @@ public class UserServiceImpl implements UserService {
     public User toUser(UserDto userDto) {
         return User.builder()
                 .id(userDto.getId())
-                .name(userDto.getName())
-                .lastname(userDto.getLastname())
-                .surname(userDto.getSurname())
                 .login(userDto.getLogin())
                 .password(passwordEncoder.encode(userDto.getPassword()))
-                .role(userDto.getRole())
-                .flag(userDto.getFlag())
+                .role(Roles.valueOf(userDto.getRole()))
                 .build();
+    }
+
+    public void onRole(User user, Consumer<Moderator> onModerator, Consumer<Student> onStudent,
+            Consumer<Corporation> onCorporation) {
+
+        switch (user.getRole()) {
+            case MODERATOR:
+                onModerator.accept(moderatorRepo.findById(user.getAccId()).orElseThrow());
+                break;
+            case STUDENT:
+                onStudent.accept(studentRepo.findById(user.getAccId()).orElseThrow());
+                break;
+            case CORPORATION:
+                onCorporation.accept(corporationRepo.findById(user.getAccId()).orElseThrow());
+                break;
+            default:
+                break;
+        }
     }
 }
