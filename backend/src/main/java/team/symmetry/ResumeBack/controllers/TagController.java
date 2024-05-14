@@ -30,11 +30,8 @@ public class TagController {
         return tagService.getAll();
     }
     
-
     @PostMapping
-    public Tag create(@RequestBody TagDTO entity) {
-        
-        
+    public Tag create(@RequestBody TagDTO entity) {        
         return tagService.create(entity);
     }
     

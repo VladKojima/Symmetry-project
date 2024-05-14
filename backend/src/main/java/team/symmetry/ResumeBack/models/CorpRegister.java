@@ -1,17 +1,10 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -20,15 +13,13 @@ import lombok.Builder;
 import lombok.Data;
 
 @Entity
-@Table(name = "moderators")
+@Table(name = "corporations_request")
 @Data
 @Builder
-public class Moderator {
+public class CorpRegister {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String photoPath;
 
     @NotNull
     @Column(nullable = false)
@@ -36,10 +27,8 @@ public class Moderator {
 
     @NotNull
     @Column(nullable = false)
-    private String surname;
+    private String urName;
 
-    private String patronymic;
-    
     @NotNull
     @Column(nullable = false)
     @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
@@ -49,12 +38,4 @@ public class Moderator {
     @Column(nullable = false)
     @Email
     private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "departmentid", nullable = true)
-    private Department workingPlace;
-
-    @OneToMany(mappedBy = "moderator")
-    @JsonIgnore
-    private Set<New> news;
 }

@@ -42,6 +42,8 @@ server:
 
 app:
     filesPath: ${FILES_PATH}
+    corprequests:
+        address: ${MAIL_CORPREQADDRESS}
 
 
 
