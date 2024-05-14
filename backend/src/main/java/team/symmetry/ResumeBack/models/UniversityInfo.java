@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -12,27 +12,27 @@ import lombok.Data;
 @Data
 public class UniversityInfo {
     @OneToMany(mappedBy = "student")
-    List<Competition> competitions;
+    Set<Competition> competitions;
     
     @OneToMany(mappedBy = "student")
-    List<Grant> grants;
+    Set<Grant> grants;
 
     @OneToMany(mappedBy = "student")
-    List<Publication> publications;
+    Set<Publication> publications;
 
     @OneToMany(mappedBy = "student")
-    List<SomeActivity> someActivities;
+    Set<SomeActivity> someActivities;
 
     @OneToMany(mappedBy = "student")
-    List<StudentStatus> statuses;
+    Set<StudentStatus> statuses;
 
     @OneToMany(mappedBy = "student")
-    List<TrainingCertificate> certificates;
+    Set<TrainingCertificate> certificates;
 
     @OneToMany(mappedBy = "student")
-    List<Interest> interests;
+    Set<Interest> interests;
 
     @NotNull
-    @Column(nullable = false, table = "students")
+    @Column(nullable = true, table = "students")
     String groupTitle;
 }

@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,13 +17,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "corporations")
 @Data
-@AllArgsConstructor
+@Builder
 public class Corporation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +55,7 @@ public class Corporation {
         joinColumns = @JoinColumn(name = "corporationid", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "tagid", nullable = false)
     )
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     private String about;
 
@@ -63,5 +63,5 @@ public class Corporation {
 
     @OneToMany(mappedBy = "corporation")
     @JsonIgnore
-    private List<Announcement> announcements;
+    private Set<Announcement> announcements;
 }

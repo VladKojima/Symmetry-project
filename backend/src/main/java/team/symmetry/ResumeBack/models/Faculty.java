@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,7 +31,7 @@ public class Faculty {
     private String name;
 
     @OneToMany(mappedBy = "faculty")
-    private List<Department> departments;
+    private Set<Department> departments;
 
     @ManyToOne
     @JoinColumn(name = "universityid", nullable = false)

@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,13 +30,17 @@ public class Tag {
 
     @ManyToMany(mappedBy = "tags")
     @JsonIgnore
-    private List<Student> students;
+    private Set<Student> students;
 
     @ManyToMany(mappedBy = "tags")
     @JsonIgnore
-    private List<Announcement> announcements;
+    private Set<Announcement> announcements;
 
     @ManyToMany(mappedBy = "tags")
     @JsonIgnore
-    private List<Corporation> corporations;
+    private Set<Corporation> corporations;
+
+    @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
+    private Set<New> news;
 }

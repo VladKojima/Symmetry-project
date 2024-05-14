@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,12 +43,12 @@ public class Announcement {
         joinColumns = @JoinColumn(name = "announcementid", nullable = false),
         inverseJoinColumns= @JoinColumn(name = "tagid", nullable = false)
     )
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @ManyToOne
     @JoinColumn(name = "corporationid", nullable = false)
     private Corporation corporation;
 
     @ManyToMany(mappedBy = "responsedAnnouncements")
-    private List<Student> students;
+    private Set<Student> students;
 }

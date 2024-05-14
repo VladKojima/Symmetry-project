@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -15,7 +15,7 @@ import team.symmetry.ResumeBack.models.enums.TypeOfLearn;
 @Data
 public class OtherInfo {
     @OneToMany(mappedBy = "student")
-    private List<WorkExperience> workExperience;
+    private Set<WorkExperience> workExperience;
 
     @Column(nullable = true, table = "students")
     private String hobbies;
@@ -27,18 +27,18 @@ public class OtherInfo {
     private String notWorkExp;
 
     @NotNull
-    @Column(nullable = false, table = "students")
-    private List<Languages> languages;
+    @Column(nullable = true, table = "students")
+    private Set<Languages> languages;
 
     @Column(nullable = true, table = "students")
     private Integer wantWages;
 
     @NotNull
     @Max(5)
-    @Column(nullable = false, table = "students")
+    @Column(nullable = true, table = "students")
     private Integer year;
 
     @NotNull
-    @Column(nullable = false, table = "students")
+    @Column(nullable = true, table = "students")
     private TypeOfLearn typeOfLearn;
 }

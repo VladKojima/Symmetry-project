@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,5 +30,5 @@ public class Skill {
 
     @ManyToMany(mappedBy = "skills")
     @JsonIgnore
-    List<Student> students;
+    Set<Student> students;
 }

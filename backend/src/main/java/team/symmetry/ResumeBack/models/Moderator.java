@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -56,5 +56,5 @@ public class Moderator {
 
     @OneToMany(mappedBy = "moderator")
     @JsonIgnore
-    private List<New> news;
+    private Set<New> news;
 }

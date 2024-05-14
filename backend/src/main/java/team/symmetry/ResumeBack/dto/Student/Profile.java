@@ -17,7 +17,7 @@ import team.symmetry.ResumeBack.models.Tag;
 public class Profile {
     private Integer id;
 
-    private String photo;
+    private String photoPath;
     @NotNull
     private String name;
     @NotNull

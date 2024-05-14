@@ -23,7 +23,7 @@ public class StudentService {
 
         return Profile.builder()
                 .id(student.getId())
-                .photo(student.getPhotoPath())
+                .photoPath(student.getPhotoPath())
                 .name(student.getName())
                 .surname(student.getSurname())
                 .patronymic(student.getPatronymic())
@@ -31,9 +31,9 @@ public class StudentService {
                 .phone(student.getPhone())
                 .email(student.getEmail())
                 .telegram(student.getTelegram())
-                .skills(student.getSkills())
-                .tags(student.getTags())
-                .interests(student.getUniversityInfo().getInterests())
+                .skills(student.getSkills().stream().toList())
+                .tags(student.getTags().stream().toList())
+                .interests(student.getUniversityInfo().getInterests().stream().toList())
                 .aboutSelf(student.getOtherInfo().getAboutSelf())
                 .healthFeatures(student.getHealthFeatures())
                 .build();
@@ -49,7 +49,7 @@ public class StudentService {
 
         oInfo.setAboutSelf(profile.getAboutSelf());
 
-        student.setPhotoPath(profile.getPhoto());
+        student.setPhotoPath(profile.getPhotoPath());
         student.setName(profile.getName());
         student.setSurname(profile.getSurname());
         student.setPatronymic(profile.getPatronymic());
@@ -67,7 +67,7 @@ public class StudentService {
 
         return studentRepo.save(
                 Student.builder()
-                        .photoPath(info.getPhoto())
+                        .photoPath(info.getPhotoPath())
                         .name(info.getName())
                         .surname(info.getSurname())
                         .patronymic(info.getPatronymic())

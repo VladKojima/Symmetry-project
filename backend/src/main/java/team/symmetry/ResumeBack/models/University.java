@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.models;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,5 +27,5 @@ public class University {
     private String name;
 
     @OneToMany(mappedBy = "university")
-    private List<Faculty> faculties;
+    private Set<Faculty> faculties;
 }

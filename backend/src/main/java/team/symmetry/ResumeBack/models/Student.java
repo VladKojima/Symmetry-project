@@ -1,7 +1,7 @@
 package team.symmetry.ResumeBack.models;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -50,7 +50,7 @@ public class Student {
 
     private String telegram;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date birthday;
 
     @ManyToMany
@@ -59,7 +59,7 @@ public class Student {
         joinColumns = @JoinColumn(name = "studentid", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "tagid", nullable = false)
     )
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @ManyToMany
     @JoinTable(
@@ -67,7 +67,7 @@ public class Student {
         joinColumns = @JoinColumn(name = "studentid", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "skillid", nullable = false)
     )
-    private List<Skill> skills;
+    private Set<Skill> skills;
 
     @Column(nullable = false)
     private Boolean isActive;
@@ -82,7 +82,7 @@ public class Student {
     @JoinColumn(name = "departmentid")
     private Department learningPlace;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String healthFeatures;
 
     @Column(nullable = false)
@@ -95,5 +95,5 @@ public class Student {
         inverseJoinColumns = @JoinColumn(name = "announcementid", nullable = false)
     )
     @JsonIgnore
-    private List<Announcement> responsedAnnouncements;
+    private Set<Announcement> responsedAnnouncements;
 }
