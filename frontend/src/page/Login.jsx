@@ -32,7 +32,7 @@ function Login() {
       setPasswordError("");
     }
 
-    axios.post('http://localhost:8081/api/auth/login', {
+    axios.post('http://localhost:8080/api/auth/login', {
       login: login,
       password: password
     }, {

@@ -70,7 +70,7 @@ function Registration() {
         } else if (step === 2 && name !== '' && lastname !== '' && surname !== '' && bday !== '' && phone !== '' && validPhone) {
             const user = { name, lastname, surname, login, password, email, tg, bday, phone };
             console.log(user);
-            fetch("http://localhost:8081/user", {
+            fetch("http://localhost:8080/user", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(user)
