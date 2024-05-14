@@ -9,7 +9,6 @@ import team.symmetry.ResumeBack.models.User;
 import team.symmetry.ResumeBack.repos.UserRepository;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ public class SecurityAccountServiceImpl implements SecurityAccountService {
         Account account = new Account();
         account.setLogin(user.getLogin());
         account.setPassword(user.getPassword());
-        account.setRoles(Set.of(user.getRole()));
+        account.setRole(user.getRole());
 
         return Optional.of(account);
     }

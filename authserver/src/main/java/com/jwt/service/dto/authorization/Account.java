@@ -2,8 +2,6 @@ package com.jwt.service.dto.authorization;
 
 import lombok.Data;
 
-import java.util.Set;
-
 @Data
 public class Account {
 
@@ -11,6 +9,6 @@ public class Account {
 
     private String password;
 
-    private Set<Roles> roles;
+    private Roles role;
 
 }

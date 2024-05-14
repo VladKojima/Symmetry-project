@@ -1,13 +1,15 @@
 package com.jwt.service.dto;
 
 import com.jwt.service.dto.authorization.Account;
+import com.jwt.service.dto.authorization.Roles;
+
 import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
@@ -17,16 +19,16 @@ public class JwtAuthentication implements Authentication {
 
     private String login;
 
-    private Set<String> roles;
+    private Roles role;
 
     public JwtAuthentication(Account account) {
         this.login = account.getLogin();
-        this.roles = account.getRoles().stream().map(r -> r.toString()).collect(Collectors.toSet());
+        this.role = account.getRole();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
+        return List.of(role).stream()
                 .map(role -> "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
