@@ -25,6 +25,8 @@ function Registration() {
     const [errorMessageTg, setErrorMessageTg] = useState('');
     const today = new Date();
 
+
+
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
         setPasswordMatch(e.target.value === repPassword);

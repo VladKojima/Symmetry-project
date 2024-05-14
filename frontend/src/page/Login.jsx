@@ -48,8 +48,14 @@ function Login() {
       }
     })
     .then((data) => {
-      Cookies.set('access_token', data.accessToken);
-      navigate('/student');
+      Cookies.set("access_token", data.accessToken);
+      if (data.role === "MODERATOR") {
+        navigate('/moderator');
+      } else if (data.role === "CORPORATION") {
+        navigate('/company');
+      } else {
+        navigate('/student');
+      }
     })
     .catch((error) => {
       console.error('Произошла ошибка:', error);
