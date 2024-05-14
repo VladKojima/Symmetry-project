@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
                 Moderator moderator = moderatorRepo.save(Moderator.builder()
                     .name(userDto.getName())
                     .surname(userDto.getSurname())
-                    .phone("hello")
+                    .phone("88005553535")
                     .email("ya@ya.ru")
                     .build()
                 );
