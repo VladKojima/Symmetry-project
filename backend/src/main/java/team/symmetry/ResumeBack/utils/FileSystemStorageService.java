@@ -42,20 +42,17 @@ public class FileSystemStorageService implements FileService {
     }
 
     @Override
-    public String store(MultipartFile file) {
+    public String store(MultipartFile file) throws IOException {
         String name = file.getOriginalFilename();
         name = name.substring(name.lastIndexOf("."), name.length());
         String filename = UUID.randomUUID().toString() + name;
-        try {
-            if (file.isEmpty()) {
-                throw new Exception("Failed to store empty file " + filename);
-            }
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, rootLocation.resolve(filename),
-                        StandardCopyOption.REPLACE_EXISTING);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+
+        if (file.isEmpty()) {
+            throw new IOException("Failed to store empty file " + filename);
+        }
+        try (InputStream inputStream = file.getInputStream()) {
+            Files.copy(inputStream, rootLocation.resolve(filename),
+                    StandardCopyOption.REPLACE_EXISTING);
         }
 
         return filename;
