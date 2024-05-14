@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from 'axios';
 import "./registr.css";
 
 function Login() {
@@ -31,27 +32,28 @@ function Login() {
       setPasswordError("");
     }
 
-    fetch("http://localhost:8081/auth/login", {
-      method: "POST",
+    axios.post('http://localhost:8081/api/auth/login', {
+      login: login,
+      password: password
+    }, {
       headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ login: login, password: password }),
+        'Content-Type': 'application/json'
+      }
     })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Ошибка запроса");
-        }
-      })
-      .then((data) => {
-        Cookies.set("access_token", data.accessToken);
-        navigate("/film");
-      })
-      .catch((error) => {
-        console.error("Произошла ошибка:", error);
-      });
+    .then((response) => {
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error('Ошибка запроса');
+      }
+    })
+    .then((data) => {
+      Cookies.set('access_token', data.accessToken);
+      navigate('/student');
+    })
+    .catch((error) => {
+      console.error('Произошла ошибка:', error);
+    });
   };
 
   return (

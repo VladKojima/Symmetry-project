@@ -1,0 +1,56 @@
+* {
+    color: #333333;
+}
+.nav-link {
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 100px;        
+    text-align: center;
+    margin-bottom: 1rem;
+    width: 100%;
+    display: block;
+}
+.bg-light {
+    background-color: #536CB3 !important;
+}
+.navbar {
+    height: 100vh;
+}
+
+h3 {
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 24px !important;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: #536CB3 !important;
+    background-color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+}
+.nav-link:focus, .nav-link:hover {
+    color: #536CB3;
+    background-color: #c8daff;
+    text-decoration: none;
+}
+.profile-photo-box {
+    width: 220px;
+    height: 220px;
+    background-size: cover;
+    position: relative;
+    overflow:hidden;
+    border-radius: 100%;
+    border: 2px solid #536CB3;
+}
+.profile-photo {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:220px;
+    height:220px;
+    object-fit:cover;
+}
+.fs-24 {
+    font-size: 24px;
+}
