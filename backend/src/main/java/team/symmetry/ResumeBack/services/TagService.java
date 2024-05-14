@@ -25,6 +25,6 @@ public class TagService {
     public Tag create(TagDTO dto) {
         validator.validate(dto);
 
-        return tagRepo.save(new Tag(null, dto.getName(), null, null, null));
+        return tagRepo.save(new Tag(null, dto.getName(), null, null, null, null));
     }
 }

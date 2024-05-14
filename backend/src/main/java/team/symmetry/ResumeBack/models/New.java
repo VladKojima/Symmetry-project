@@ -17,10 +17,10 @@ import lombok.Builder;
 import lombok.Data;
 
 @Entity
-@Table(name = "announcements")
+@Table(name = "news")
 @Data
 @Builder
-public class Announcement {
+public class New {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -33,22 +33,15 @@ public class Announcement {
     @Column(nullable = false)
     private String textBody;
 
-    private String needs;
-
-    private String conditionsProvided;
-
     @ManyToMany
     @JoinTable(
-        name = "announcement_to_tag",
-        joinColumns = @JoinColumn(name = "announcementid", nullable = false),
+        name = "new_to_tag",
+        joinColumns = @JoinColumn(name = "newid", nullable = false),
         inverseJoinColumns= @JoinColumn(name = "tagid", nullable = false)
     )
     private List<Tag> tags;
 
     @ManyToOne
-    @JoinColumn(name = "corporationid", nullable = false)
-    private Corporation corporation;
-
-    @ManyToMany(mappedBy = "responsedAnnouncements")
-    private List<Student> students;
+    @JoinColumn(name = "moderatorid", nullable = false)
+    private Moderator moderator;
 }

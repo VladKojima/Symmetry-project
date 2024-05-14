@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -60,12 +61,7 @@ public class Corporation {
 
     private String url;
 
-    @ManyToMany
-    @JoinTable(
-        name = "corporation_to_announcement",
-        joinColumns = @JoinColumn(name = "corporationid", nullable = false),
-        inverseJoinColumns = @JoinColumn(name = "announcementid", nullable = false)
-    )
+    @OneToMany(mappedBy = "corporation")
     @JsonIgnore
     private List<Announcement> announcements;
 }
