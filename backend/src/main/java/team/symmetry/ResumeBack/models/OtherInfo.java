@@ -7,10 +7,12 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import team.symmetry.ResumeBack.models.enums.Languages;
 import team.symmetry.ResumeBack.models.enums.TypeOfLearn;
 
 @Embeddable
+@Data
 public class OtherInfo {
     @OneToMany(mappedBy = "student")
     private List<WorkExperience> workExperience;

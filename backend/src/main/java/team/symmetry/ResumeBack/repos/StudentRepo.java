@@ -1,9 +1,9 @@
-// package team.symmetry.ResumeBack.repos;
+package team.symmetry.ResumeBack.repos;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import team.symmetry.ResumeBack.models.Student;
+import team.symmetry.ResumeBack.models.Student;
 
-// public interface StudentRepo extends JpaRepository<Student, Integer>{
+public interface StudentRepo extends JpaRepository<Student, Integer>{
     
-// }
+}

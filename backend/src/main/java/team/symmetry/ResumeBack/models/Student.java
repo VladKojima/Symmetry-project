@@ -17,15 +17,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "students")
 @Data
-@AllArgsConstructor
+@Builder
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,29 +32,24 @@ public class Student {
 
     private String photoPath;
 
-    @NotNull
     @Column(nullable = false)
     private String name;
 
-    @NotNull
     @Column(nullable = false)
     private String surname;
 
     private String patronymic;
-
-    @NotNull
+    
     @Column(nullable = false)
     @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
     private String phone;
 
-    @NotNull
     @Column(nullable = false)
     @Email
     private String email;
 
     private String telegram;
 
-    @NotNull
     @Column(nullable = false)
     private Date birthday;
 
@@ -75,25 +69,22 @@ public class Student {
     )
     private List<Skill> skills;
 
-    @NotNull
     @Column(nullable = false)
     private Boolean isActive;
 
     @Embedded
-    private UniversityInfo sstuInfo;
+    private UniversityInfo universityInfo;
 
     @Embedded
     private OtherInfo otherInfo;
 
     @ManyToOne
-    @JoinColumn(name = "departmentid", nullable = false)
+    @JoinColumn(name = "departmentid")
     private Department learningPlace;
 
-    @NotNull
     @Column(nullable = false)
     private String healthFeatures;
 
-    @NotNull
     @Column(nullable = false)
     private Boolean block;
 

@@ -50,7 +50,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                         authorize.requestMatchers("/js/**", "/test/**").permitAll()
                                 .requestMatchers("api/login/**", "api/auth/login/**", "api/user/**")
                                 .hasRole("ANONYMOUS")
-                                .requestMatchers("api/auth/logout").authenticated()
+                                .requestMatchers("api/auth/logout", "api/**").authenticated()
                                 .anyRequest().authenticated()
                 );
         return http.build();
