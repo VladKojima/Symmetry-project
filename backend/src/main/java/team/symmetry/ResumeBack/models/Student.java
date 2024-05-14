@@ -31,6 +31,8 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String photoPath;
+
     @NotNull
     @Column(nullable = false)
     private String name;
