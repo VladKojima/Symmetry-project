@@ -3,6 +3,7 @@ package com.jwt.service.controller;
 import com.jwt.service.dto.JwtRequest;
 import com.jwt.service.dto.JwtResponse;
 import com.jwt.service.dto.RefreshJwtRequest;
+import com.jwt.service.dto.authorization.LoginResponse;
 import com.jwt.service.dto.authorization.Roles;
 import com.jwt.service.service.AuthService;
 import com.jwt.service.service.SecurityAccountService;
@@ -31,7 +32,7 @@ public class AuthAccountController {
     private SecurityAccountService securityAccountService;
 
     @PostMapping("/login")
-    public Roles login(@RequestBody @Valid JwtRequest authRequest) {
+    public LoginResponse login(@RequestBody @Valid JwtRequest authRequest) {
         JwtResponse token = authAccount.login(authRequest);
         Cookie accessToken = new Cookie("access_token", token.getAccessToken());
         accessToken.setMaxAge(Integer.MAX_VALUE);
@@ -44,9 +45,9 @@ public class AuthAccountController {
         httpServletResponse.addCookie(accessToken);
         httpServletResponse.addCookie(refreshToken);
 
+        Roles role = securityAccountService.findByLogin(authRequest.getLogin()).orElseThrow().getRole();
 
-
-        return securityAccountService.findByLogin(authRequest.getLogin()).orElseThrow().getRole();
+        return new LoginResponse(token.getAccessToken(), token.getRefreshToken(), role);
     }
 
     @PostMapping("/refresh")
