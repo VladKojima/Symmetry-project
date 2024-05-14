@@ -5,7 +5,6 @@ import com.jwt.service.dto.ExpirationTime;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -13,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -22,9 +20,6 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true
-)
 public class SecurityConfig implements WebMvcConfigurer {
 
 
@@ -53,8 +48,10 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .addFilterBefore(corsFilter(), CookieFilter.class)
                                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/js/**", "/test/**").permitAll()
+                                .requestMatchers("/auth/logout").authenticated()
                                 .requestMatchers("/login/**", "/auth/**", "/user")
-                                .hasRole("ANONYMOUS").anyRequest().authenticated()
+                                .hasRole("ANONYMOUS")
+                                .anyRequest().authenticated()
                 );
         return http.build();
     }

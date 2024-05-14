@@ -1,6 +1,6 @@
 services:
   backend:
-    build: ./backend
+    build: .
     env_file:
       - .env
     environment:
@@ -9,9 +9,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    ports:
+      - "3000:8080"
   
   frontend:
     build: ./frontend
+    ports:
+      - "80:8080"
   
   db:
     image: postgres:latest

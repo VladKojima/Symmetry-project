@@ -11,7 +11,7 @@ import team.symmetry.ResumeBack.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @CrossOrigin
 public class UserController {
     @Autowired
@@ -40,11 +40,8 @@ public class UserController {
     public UserDto updateUser(@PathVariable("id") Integer id, @RequestBody UserDto userDTO){
         return userService.updateUser(id, userDTO);
     }
-    @PostMapping("/singIn")
-    public String singIn(@RequestParam("login") String login, @RequestParam("password")String password){
-        return userService.singIn(login,password);
-    }
-    @PostMapping("/singOut")
+
+    @PostMapping("/signOut")
     public void singOut(@RequestParam("login") String login){
         userService.signOut(login);
     }

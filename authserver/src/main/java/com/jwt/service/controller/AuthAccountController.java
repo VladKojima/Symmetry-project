@@ -8,12 +8,15 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @CrossOrigin
 @RequiredArgsConstructor
 public class AuthAccountController {
@@ -22,25 +25,51 @@ public class AuthAccountController {
     private final HttpServletResponse httpServletResponse;
 
     @PostMapping("/login")
-    public JwtResponse login(@RequestBody @Valid JwtRequest authRequest) {
-            JwtResponse token = authAccount.login(authRequest);
-//        Cookie accessToken = new Cookie("access_token", token.getAccessToken());
-//        accessToken.setMaxAge(Integer.MAX_VALUE);
-//        accessToken.setHttpOnly(false);
-////        accessToken.setSecure();
-//        accessToken.setPath("/");
-//        Cookie refreshToken = new Cookie("refresh_token", token.getRefreshToken());
-//        refreshToken.setMaxAge(Integer.MAX_VALUE);
-//        refreshToken.setHttpOnly(false);
-//        refreshToken.setPath("/");
-//        httpServletResponse.addCookie(accessToken);
-//        httpServletResponse.addCookie(refreshToken);
-        return token;
+    public ResponseEntity<Void> login(@RequestBody @Valid JwtRequest authRequest) {
+        JwtResponse token = authAccount.login(authRequest);
+        Cookie accessToken = new Cookie("access_token", token.getAccessToken());
+        accessToken.setMaxAge(Integer.MAX_VALUE);
+        accessToken.setHttpOnly(false);
+        accessToken.setPath("/");
+        Cookie refreshToken = new Cookie("refresh_token", token.getRefreshToken());
+        refreshToken.setMaxAge(Integer.MAX_VALUE);
+        refreshToken.setHttpOnly(false);
+        refreshToken.setPath("/");
+        httpServletResponse.addCookie(accessToken);
+        httpServletResponse.addCookie(refreshToken);
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<JwtResponse> getNewTokenByRefresh(@RequestBody @Valid RefreshJwtRequest request) {
+    public ResponseEntity<Void> getNewTokenByRefresh(@RequestBody @Valid RefreshJwtRequest request) {
         JwtResponse token = authAccount.refresh(request.getRefreshToken());
-        return ResponseEntity.ok(token);
+        Cookie accessToken = new Cookie("access_token", token.getAccessToken());
+        accessToken.setMaxAge(Integer.MAX_VALUE);
+        accessToken.setHttpOnly(false);
+        accessToken.setPath("/");
+        Cookie refreshToken = new Cookie("refresh_token", token.getRefreshToken());
+        refreshToken.setMaxAge(Integer.MAX_VALUE);
+        refreshToken.setHttpOnly(false);
+        refreshToken.setPath("/");
+        httpServletResponse.addCookie(accessToken);
+        httpServletResponse.addCookie(refreshToken);
+        return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> postMethodName() {
+        Cookie accessToken = new Cookie("access_token", null);
+        accessToken.setMaxAge(0);
+        accessToken.setHttpOnly(false);
+        accessToken.setPath("/");
+        Cookie refreshToken = new Cookie("refresh_token", null);
+        refreshToken.setMaxAge(0);
+        refreshToken.setHttpOnly(false);
+        refreshToken.setPath("/");
+        httpServletResponse.addCookie(accessToken);
+        httpServletResponse.addCookie(refreshToken);
+        return ResponseEntity.ok().build();
+    }
+    
 }
