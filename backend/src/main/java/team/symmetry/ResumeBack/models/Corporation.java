@@ -28,6 +28,8 @@ public class Corporation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String photoPath;
+
     @NotNull
     @Column(nullable = false)
     private String name;
