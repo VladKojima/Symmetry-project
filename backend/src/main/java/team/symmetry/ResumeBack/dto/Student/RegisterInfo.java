@@ -12,6 +12,7 @@ import team.symmetry.ResumeBack.models.Department;
 @Data
 @ToString
 public class RegisterInfo {
+    private Integer number;
     private String photoPath;
     @NotNull
     private String name;

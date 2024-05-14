@@ -2,7 +2,9 @@ package team.symmetry.ResumeBack.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import team.symmetry.ResumeBack.dto.UserDto;
 import team.symmetry.ResumeBack.dto.Student.Profile;
 import team.symmetry.ResumeBack.dto.Student.RegisterInfo;
 import team.symmetry.ResumeBack.models.OtherInfo;
@@ -17,6 +19,9 @@ public class StudentService {
 
     @Autowired
     StudentRepo studentRepo;
+
+    @Autowired
+    UserService userService;
 
     public Profile getProfile(int id) {
         Student student = studentRepo.findById(id).orElseThrow();
@@ -40,6 +45,7 @@ public class StudentService {
 
     }
 
+    @Transactional
     public void updateProfile(Profile profile) {
         validator.validate(profile);
 
@@ -62,10 +68,11 @@ public class StudentService {
         studentRepo.save(student);
     }
 
+    @Transactional
     public Student create(RegisterInfo info) {
         validator.validate(info);
 
-        return studentRepo.save(
+        Student student = studentRepo.save(
                 Student.builder()
                         .photoPath(info.getPhotoPath())
                         .name(info.getName())
@@ -78,5 +85,19 @@ public class StudentService {
                         .isActive(true)
                         .block(false)
                         .build());
+        
+        //TODO: пароль - дата рождения
+
+        userService.createUser(UserDto.builder()
+                .login(info.getNumber().toString())
+                .name(info.getName())
+                .surname(info.getSurname())
+                .lastname(info.getPatronymic())
+                .role("STUDENT")
+                .password(info.getNumber().toString())
+                .accId(student.getId())
+                .build());
+
+        return student;
     }
 }
