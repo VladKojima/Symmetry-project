@@ -3,6 +3,8 @@ package team.symmetry.ResumeBack.models;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -84,4 +86,21 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "departmentid", nullable = false)
     private Department learningPlace;
+
+    @NotNull
+    @Column(nullable = false)
+    private String healthFeatures;
+
+    @NotNull
+    @Column(nullable = false)
+    private Boolean block;
+
+    @ManyToMany
+    @JoinTable(
+        name = "job_response",
+        joinColumns = @JoinColumn(name = "studentid", nullable = false),
+        inverseJoinColumns = @JoinColumn(name = "announcementid", nullable = false)
+    )
+    @JsonIgnore
+    private List<Announcement> responsedAnnouncements;
 }

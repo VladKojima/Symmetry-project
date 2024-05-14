@@ -49,4 +49,7 @@ public class Announcement {
 
     @ManyToMany(mappedBy = "announcements")
     private List<Moderator> moderators;
+
+    @ManyToMany(mappedBy = "responsedAnnouncements")
+    private List<Student> students;
 }
