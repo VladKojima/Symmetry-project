@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import team.symmetry.ResumeBack.dto.CorpRegister.CorpRegisterDTO;
 import team.symmetry.ResumeBack.models.CorpRegister;
 import team.symmetry.ResumeBack.repos.CorpRegisterRepo;
+import team.symmetry.ResumeBack.repos.UserRepository;
 import team.symmetry.ResumeBack.utils.EntityValidator;
 import team.symmetry.ResumeBack.utils.MailHelp;
 
@@ -15,12 +16,18 @@ public class CorpRegisterService {
     CorpRegisterRepo corpRegisterRepo;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     EntityValidator validator;
+
+    @Autowired
+    RoleService roleService;
 
     @Autowired
     MailHelp mailHelp;
 
-    public CorpRegister create(CorpRegisterDTO dto) {
+    public CorpRegister create(int userId, CorpRegisterDTO dto) {
         validator.validate(dto);
 
         CorpRegister corpRegister = corpRegisterRepo.save(CorpRegister.builder()
@@ -28,6 +35,7 @@ public class CorpRegisterService {
                 .urName(dto.getUrName())
                 .phone(dto.getPhone())
                 .email(dto.getEmail())
+                .user(userRepository.findById(userId).orElseThrow())
                 .build());
 
         //mailHelp.sendReqMail(dto); TODO: проверка отправки по почте

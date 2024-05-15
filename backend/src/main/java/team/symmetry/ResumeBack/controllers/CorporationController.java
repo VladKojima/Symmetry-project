@@ -11,9 +11,10 @@ import team.symmetry.ResumeBack.models.CorpRegister;
 import team.symmetry.ResumeBack.models.Corporation;
 import team.symmetry.ResumeBack.services.CorpRegisterService;
 import team.symmetry.ResumeBack.services.CorporationService;
+import team.symmetry.ResumeBack.services.RoleService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/api/corporation")
@@ -25,13 +26,16 @@ public class CorporationController {
     @Autowired
     CorpRegisterService corpRegisterService;
 
+    @Autowired
+    RoleService roleService;
+
     @PostMapping("/request")
-    public CorpRegister request(@RequestBody CorpRegisterDTO dto){
-        return corpRegisterService.create(dto);
+    public CorpRegister request(@RequestBody CorpRegisterDTO dto) {
+        return corpRegisterService.create(roleService.getId(), dto);
     }
-    
-    @PostMapping("/register/{id}")    
-    public Corporation create(@PathVariable("id") Integer id){
+
+    @PostMapping("/register/{id}")
+    public Corporation create(@PathVariable("id") Integer id) {
         return corporationService.register(id);
     }
 }

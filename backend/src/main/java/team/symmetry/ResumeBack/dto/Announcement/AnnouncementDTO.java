@@ -4,7 +4,6 @@ import java.util.Set;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import team.symmetry.ResumeBack.models.Tag;
 
 @Data
 public class AnnouncementDTO {
@@ -17,5 +16,5 @@ public class AnnouncementDTO {
 
     private String conditionsProvided;
 
-    private Set<Tag> tags;
+    private Set<String> tags;
 }

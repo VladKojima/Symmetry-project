@@ -27,4 +27,8 @@ public class TagService {
 
         return tagRepo.save(new Tag(null, dto.getName(), null, null, null, null));
     }
+
+    public List<Tag> createAll(List<String> tags){
+        return tagRepo.saveAll(tags.stream().map(t -> Tag.builder().name(t).build()).toList());
+    }
 }

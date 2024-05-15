@@ -13,12 +13,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 @Entity
 @Table(name = "tags")
 @Value
 @AllArgsConstructor
+@Builder
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
