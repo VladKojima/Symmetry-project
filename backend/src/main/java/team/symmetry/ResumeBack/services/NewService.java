@@ -1,6 +1,7 @@
 package team.symmetry.ResumeBack.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,16 +21,21 @@ public class NewService {
     ModeratorRepo moderatorRepo;
 
     @Autowired
+    TagService tagService;
+
+    @Autowired
     EntityValidator validator;
 
     public New create(int moderId, NewDTO dto) {
         validator.validate(dto);
 
+        System.out.println(dto.getTags());
+
         return newRepo.save(
                 New.builder()
                         .header(dto.getHeader())
                         .textBody(dto.getTextBody())
-                        .tags(dto.getTags())
+                        .tags(dto.getTags().stream().collect(Collectors.toSet()))
                         .moderator(moderatorRepo.findById(moderId).orElseThrow())
                         .build());
     }

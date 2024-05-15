@@ -1,6 +1,6 @@
 package team.symmetry.ResumeBack.dto.New;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -12,6 +12,6 @@ public class NewDTO {
     private String header;
     @NotNull
     private String textBody;
-
-    private Set<Tag> tags;
+    @NotNull
+    private List<Tag> tags;
 }
