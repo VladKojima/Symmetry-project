@@ -48,7 +48,7 @@ public class Student {
     @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
     private String phone;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Email
     private String email;
 
