@@ -42,13 +42,13 @@ public class StudentController {
         return studentService.getProfile(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public Student create(@RequestBody RegisterInfo info) {
 
         return studentService.create(info);
     }
 
-    @PutMapping
+    @PutMapping("/edit")
     public void edit(@RequestBody Profile profile){
         studentService.updateProfile(roleService.getUser(), profile);
     }
