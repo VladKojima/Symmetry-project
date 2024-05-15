@@ -15,12 +15,14 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import team.symmetry.ResumeBack.models.enums.TypeStatus;
 
 @Entity
 @Table(name = "student_statuses")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class StudentStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

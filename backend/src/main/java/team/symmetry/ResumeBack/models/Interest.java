@@ -16,11 +16,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "interests")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Interest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

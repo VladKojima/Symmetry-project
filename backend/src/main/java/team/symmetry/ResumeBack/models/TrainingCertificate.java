@@ -16,11 +16,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "training_certificates")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TrainingCertificate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

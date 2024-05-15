@@ -16,11 +16,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "publications")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Publication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

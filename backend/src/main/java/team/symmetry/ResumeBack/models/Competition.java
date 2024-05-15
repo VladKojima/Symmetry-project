@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import team.symmetry.ResumeBack.models.enums.Status;
 import team.symmetry.ResumeBack.models.enums.TypeComp;
 import team.symmetry.ResumeBack.models.enums.Victory;
@@ -23,6 +24,7 @@ import team.symmetry.ResumeBack.models.enums.Victory;
 @Table(name = "competitions")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Competition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

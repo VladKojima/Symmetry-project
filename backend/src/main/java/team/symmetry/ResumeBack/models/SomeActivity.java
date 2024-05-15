@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import team.symmetry.ResumeBack.models.enums.Status;
 import team.symmetry.ResumeBack.models.enums.TypeOfSA;
 
@@ -22,6 +23,7 @@ import team.symmetry.ResumeBack.models.enums.TypeOfSA;
 @Table(name = "sactivities")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class SomeActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

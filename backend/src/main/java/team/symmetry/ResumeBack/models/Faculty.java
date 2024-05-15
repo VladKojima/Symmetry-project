@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -21,6 +22,7 @@ import lombok.Value;
 @Table(name = "faculties")
 @Value
 @Builder
+@AllArgsConstructor
 public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
