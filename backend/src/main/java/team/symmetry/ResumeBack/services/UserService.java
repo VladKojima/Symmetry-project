@@ -3,6 +3,7 @@ package team.symmetry.ResumeBack.services;
 import java.util.List;
 import java.util.function.Consumer;
 
+import team.symmetry.ResumeBack.dto.NewPasswordDTO;
 import team.symmetry.ResumeBack.dto.UserDto;
 import team.symmetry.ResumeBack.exceptions.UserNotFoundException;
 import team.symmetry.ResumeBack.models.Corporation;
@@ -25,4 +26,5 @@ public interface UserService {
     User toUser(UserDto userDto);
 
     public void onRole(User user, Consumer<Moderator> onModerator, Consumer<Student> onStudent, Consumer<Corporation> onCorporation);
+    void changePassword(User user, NewPasswordDTO dto);
 }

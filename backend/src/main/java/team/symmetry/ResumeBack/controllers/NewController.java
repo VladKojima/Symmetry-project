@@ -34,7 +34,7 @@ public class NewController {
     }
     
     
-    @PostMapping
+    @PostMapping("/create")
     public New create(@RequestBody NewDTO dto) {
         return newService.create(roleService.getId(), dto);
     }

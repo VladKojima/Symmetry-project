@@ -7,29 +7,30 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import team.symmetry.ResumeBack.dto.Department.DepartmentDTO;
-import team.symmetry.ResumeBack.models.Department;
-import team.symmetry.ResumeBack.services.DepartmentService;
-
+import team.symmetry.ResumeBack.dto.Moderator.ModeratorDTO;
+import team.symmetry.ResumeBack.models.Moderator;
+import team.symmetry.ResumeBack.services.ModeratorService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/department")
+@RequestMapping("/api/moderator")
 @CrossOrigin
-public class DepartmentController {
+public class ModeratorController {
+
     @Autowired
-    DepartmentService departmentService;
+    ModeratorService moderatorService;
 
     @GetMapping
-    public List<Department> getAll() {
-        return departmentService.getAll();
+    public List<Moderator> getAll() {
+        return moderatorService.getAll();
     }
 
-    @PostMapping("/create")
-    public Department create(@RequestBody DepartmentDTO entity) {
-        return departmentService.create(entity);
+    @PostMapping
+    public Moderator create(@RequestBody ModeratorDTO dto) {
+
+        return moderatorService.create(dto);
     }
 
 }

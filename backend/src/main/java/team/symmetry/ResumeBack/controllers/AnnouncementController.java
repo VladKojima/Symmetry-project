@@ -33,7 +33,7 @@ public class AnnouncementController {
         return announcementService.getAll();
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public Announcement create(@RequestBody AnnouncementDTO entity) {
         return announcementService.create(roleService.getId(), entity);
     }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.jwt.service.dto.authorization.Roles;
 
+import team.symmetry.ResumeBack.dto.NewPasswordDTO;
 import team.symmetry.ResumeBack.dto.UserDto;
 import team.symmetry.ResumeBack.exceptions.UserNotFoundException;
 import team.symmetry.ResumeBack.models.Corporation;
@@ -15,6 +16,7 @@ import team.symmetry.ResumeBack.models.User;
 import team.symmetry.ResumeBack.repos.CorporationRepo;
 import team.symmetry.ResumeBack.repos.ModeratorRepo;
 import team.symmetry.ResumeBack.repos.StudentRepo;
+import team.symmetry.ResumeBack.utils.EntityValidator;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,6 +38,9 @@ public class UserServiceImpl implements UserService {
     private CorporationRepo corporationRepo;
     @Autowired
     private StudentRepo studentRepo;
+
+    @Autowired
+    EntityValidator validator;
 
     @Override
     public List<UserDto> getUsers() {
@@ -66,16 +71,15 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
         User user = toUser(userDto);
 
-        //TODO: логика регистрации по ролям
+        // TODO: логика регистрации по ролям
         switch (userDto.getRole()) {
             case "MODERATOR":
                 Moderator moderator = moderatorRepo.save(Moderator.builder()
-                    .name(userDto.getName())
-                    .surname(userDto.getSurname())
-                    .phone("88005553535")
-                    .email("ya@ya.ru")
-                    .build()
-                );
+                        .name(userDto.getName())
+                        .surname(userDto.getSurname())
+                        .phone("88005553535")
+                        .email("ya@ya.ru")
+                        .build());
                 user.setAccId(moderator.getId());
                 break;
             case "STUDENT":
@@ -139,6 +143,13 @@ public class UserServiceImpl implements UserService {
                 .role(Roles.valueOf(userDto.getRole()))
                 .accId(userDto.getAccId())
                 .build();
+    }
+
+    public void changePassword(User user, NewPasswordDTO dto) {
+        validator.validate(dto);
+
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        userRepository.save(user);
     }
 
     public void onRole(User user, Consumer<Moderator> onModerator, Consumer<Student> onStudent,

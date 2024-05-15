@@ -25,8 +25,8 @@ public class FacultyController {
     public List<Faculty> getAll(){
         return facultyService.getAll();
     }
-
-    @PostMapping
+    
+    @PostMapping("/create")
     public Faculty create(@RequestBody FacultyDTO dto){
         return facultyService.create(dto);
     }
