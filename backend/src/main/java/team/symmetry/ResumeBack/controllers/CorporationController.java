@@ -31,7 +31,7 @@ public class CorporationController {
 
     @PostMapping("/request")
     public CorpRegister request(@RequestBody CorpRegisterDTO dto) {
-        return corpRegisterService.create(roleService.getId(), dto);
+        return corpRegisterService.create(roleService.getUser(), dto);
     }
 
     @PostMapping("/register/{id}")

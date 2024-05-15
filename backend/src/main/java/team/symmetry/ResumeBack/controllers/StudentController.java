@@ -11,12 +11,14 @@ import team.symmetry.ResumeBack.dto.Student.Profile;
 import team.symmetry.ResumeBack.dto.Student.QuickProfile;
 import team.symmetry.ResumeBack.dto.Student.RegisterInfo;
 import team.symmetry.ResumeBack.models.Student;
+import team.symmetry.ResumeBack.services.RoleService;
 import team.symmetry.ResumeBack.services.StudentService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/student")
@@ -25,6 +27,9 @@ public class StudentController {
 
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    RoleService roleService;
 
     @GetMapping
     public List<QuickProfile> getAll() {
@@ -41,6 +46,11 @@ public class StudentController {
     public Student create(@RequestBody RegisterInfo info) {
 
         return studentService.create(info);
+    }
+
+    @PutMapping
+    public void edit(@RequestBody Profile profile){
+        studentService.updateProfile(roleService.getUser(), profile);
     }
 
 }

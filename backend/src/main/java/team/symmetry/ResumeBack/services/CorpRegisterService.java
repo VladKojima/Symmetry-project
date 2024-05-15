@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import team.symmetry.ResumeBack.dto.CorpRegister.CorpRegisterDTO;
+import team.symmetry.ResumeBack.exceptions.NotFound;
 import team.symmetry.ResumeBack.models.CorpRegister;
+import team.symmetry.ResumeBack.models.User;
 import team.symmetry.ResumeBack.repos.CorpRegisterRepo;
 import team.symmetry.ResumeBack.repos.UserRepository;
 import team.symmetry.ResumeBack.utils.EntityValidator;
@@ -22,12 +24,9 @@ public class CorpRegisterService {
     EntityValidator validator;
 
     @Autowired
-    RoleService roleService;
-
-    @Autowired
     MailHelp mailHelp;
 
-    public CorpRegister create(int userId, CorpRegisterDTO dto) {
+    public CorpRegister create(User user, CorpRegisterDTO dto) {
         validator.validate(dto);
 
         CorpRegister corpRegister = corpRegisterRepo.save(CorpRegister.builder()
@@ -35,7 +34,7 @@ public class CorpRegisterService {
                 .urName(dto.getUrName())
                 .phone(dto.getPhone())
                 .email(dto.getEmail())
-                .user(userRepository.findById(userId).orElseThrow())
+                .user(user)
                 .build());
 
         //mailHelp.sendReqMail(dto); TODO: проверка отправки по почте
@@ -44,7 +43,7 @@ public class CorpRegisterService {
     }
 
     public CorpRegister getById(int id) {
-        return corpRegisterRepo.findById(id).orElseThrow();
+        return corpRegisterRepo.findById(id).orElseThrow(NotFound::new);
     }
 
     public void delete(int id) {

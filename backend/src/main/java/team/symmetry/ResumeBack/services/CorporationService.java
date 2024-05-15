@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jwt.service.dto.authorization.Roles;
+
 import team.symmetry.ResumeBack.models.CorpRegister;
 import team.symmetry.ResumeBack.models.Corporation;
 import team.symmetry.ResumeBack.models.User;
@@ -40,6 +42,7 @@ public class CorporationService {
 
         User user = newCorp.getUser();
 
+        user.setRole(Roles.CORPORATION);
         user.setAccId(corporation.getId());
 
         userRepository.save(user);

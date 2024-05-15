@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import team.symmetry.ResumeBack.dto.Announcement.AnnouncementDTO;
+import team.symmetry.ResumeBack.exceptions.NotFound;
 import team.symmetry.ResumeBack.models.Announcement;
 import team.symmetry.ResumeBack.models.Student;
 import team.symmetry.ResumeBack.repos.AnnouncementRepo;
@@ -44,7 +45,7 @@ public class AnnouncementService {
     }
 
     public void response(int studentId, int id) {
-        Announcement ann = announcementRepo.findById(id).orElseThrow();
+        Announcement ann = announcementRepo.findById(id).orElseThrow(NotFound::new);
 
         Student student = studentRepo.findById(studentId).orElseThrow();
 

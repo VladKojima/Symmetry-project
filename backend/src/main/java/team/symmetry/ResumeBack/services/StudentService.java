@@ -9,14 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jwt.service.dto.authorization.Roles;
+
 import team.symmetry.ResumeBack.dto.UserDto;
 import team.symmetry.ResumeBack.dto.Student.Profile;
 import team.symmetry.ResumeBack.dto.Student.QuickProfile;
 import team.symmetry.ResumeBack.dto.Student.RegisterInfo;
+import team.symmetry.ResumeBack.exceptions.NotFound;
 import team.symmetry.ResumeBack.exceptions.WrongDateException;
 import team.symmetry.ResumeBack.models.OtherInfo;
 import team.symmetry.ResumeBack.models.Student;
 import team.symmetry.ResumeBack.models.UniversityInfo;
+import team.symmetry.ResumeBack.models.User;
 import team.symmetry.ResumeBack.repos.StudentRepo;
 import team.symmetry.ResumeBack.utils.EntityValidator;
 
@@ -32,7 +36,7 @@ public class StudentService {
     UserService userService;
 
     public Profile getProfile(int id) {
-        Student student = studentRepo.findById(id).orElseThrow();
+        Student student = studentRepo.findById(id).orElseThrow(NotFound::new);
 
         return Profile.builder()
                 .id(student.getId())
@@ -55,8 +59,12 @@ public class StudentService {
     }
 
     @Transactional
-    public void updateProfile(Profile profile) {
+    public void updateProfile(User user, Profile profile) {
         validator.validate(profile);
+
+        if (user.getRole() == Roles.STUDENT) {
+            profile.setId(user.getAccId());
+        }
 
         Student student = studentRepo.findById(profile.getId()).orElseThrow();
 
@@ -65,7 +73,7 @@ public class StudentService {
 
         oInfo.setAboutSelf(profile.getAboutSelf());
         oInfo.setWorkExperience(profile.getExperiences());
-        
+
         uInfo.setInterests(profile.getInterests());
 
         student.setPhotoPath(profile.getPhotoPath());
@@ -94,13 +102,9 @@ public class StudentService {
 
             Student student = studentRepo.save(
                     Student.builder()
-                            .photoPath(info.getPhotoPath())
                             .name(info.getName())
                             .surname(info.getSurname())
                             .patronymic(info.getPatronymic())
-                            .phone(info.getPhone())
-                            .email(info.getEmail())
-                            .telegram(info.getTelegram())
                             .birthday(birthday)
                             .isActive(true)
                             .block(false)

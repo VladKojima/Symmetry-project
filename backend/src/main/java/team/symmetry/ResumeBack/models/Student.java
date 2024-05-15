@@ -44,7 +44,7 @@ public class Student {
 
     private String patronymic;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
     private String phone;
 
