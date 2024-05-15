@@ -14,6 +14,7 @@ import VacanciesCreate from './page/VacanciesCreate';
 import News from './page/News';
 import NewsCreate from './page/NewsCreate';
 import StudentCreate from './page/StudentCreate';
+import NewsStud from './page/NewsStud';
 import './App.css'; 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/vacancis" element={<VacanciesEdit/>}/>
           <Route path='/vacancis/create' element={<VacanciesCreate/>}/>
           <Route path='/news' element={<News/>}/>
+          <Route path='/newss' element={<NewsStud/>}/>
           <Route path='/news/create' element={<NewsCreate/>}/>
           <Route path='/students/create' element={<StudentCreate/>}/>
         </Routes>

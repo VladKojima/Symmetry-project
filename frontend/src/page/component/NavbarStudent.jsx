@@ -32,7 +32,7 @@ function NavbarStudent() {
                         <NavLink className="nav-link" activeclassname="active" to="/student">Резюме</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className="nav-link" activeclassname="active" to="/news">Новости</NavLink>
+                        <NavLink className="nav-link" activeclassname="active" to="/newss">Новости</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink className="nav-link" activeclassname="active" to="/vacancies">Вакансии</NavLink>

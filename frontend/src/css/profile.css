@@ -51,6 +51,24 @@ h3 {
     height:220px;
     object-fit:cover;
 }
+.profile-photo-box-1 {
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    position: relative;
+    overflow:hidden;
+    border-radius: 100%;
+    border: 2px solid #536CB3;
+}
+.profile-photo-1 {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:150px;
+    height:150px;
+    object-fit:cover;
+}
 .fs-24 {
     font-size: 24px;
 }
@@ -186,5 +204,5 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     font-weight: 400;
 }
 .container-fluid .row .col-lg-9 {
-    height: 100vh;
+    min-height: 100vh;
 }
