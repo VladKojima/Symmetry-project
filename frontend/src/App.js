@@ -9,6 +9,11 @@ import StudentEdit from './page/StudentEdit';
 import Vacancies from './page/Vacancies';
 import Moderator from './page/Moderator';
 import ModeratorEdit from './page/ModeratorEdit';
+import VacanciesEdit from './page/VacanciesEdit';
+import VacanciesCreate from './page/VacanciesCreate';
+import News from './page/News';
+import NewsCreate from './page/NewsCreate';
+import StudentCreate from './page/StudentCreate';
 import './App.css'; 
 
 function App() {
@@ -24,6 +29,11 @@ function App() {
           <Route path='/moderator' element={<Moderator/>}/>
           <Route path='/moderator/edit' element={<ModeratorEdit/>}/>
           <Route path="/students" element={<Students/>}/>
+          <Route path="/vacancis" element={<VacanciesEdit/>}/>
+          <Route path='/vacancis/create' element={<VacanciesCreate/>}/>
+          <Route path='/news' element={<News/>}/>
+          <Route path='/news/create' element={<NewsCreate/>}/>
+          <Route path='/students/create' element={<StudentCreate/>}/>
         </Routes>
         </div>
       </div>

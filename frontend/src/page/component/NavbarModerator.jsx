@@ -29,13 +29,16 @@ function NavbarStudent() {
             <div className="collapse navbar-collapse w-100" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 flex-column w-100">
                     <li className="nav-item">
+                        <NavLink className="nav-link" activeclassname="active" to="/moderator">Профиль</NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" activeclassname="active" to="/news">Новости</NavLink>
+                    </li>
+                    <li className="nav-item">
                         <NavLink className="nav-link" activeclassname="active" to="/students">Студенты</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink className="nav-link" activeclassname="active" to="/companies">Компании</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" activeclassname="active" to="/publication">Публикации</NavLink>
                     </li>
                     <li className="nav-item mt-4">
                         <Button onClick={logoutEndpoint} className='w-100 btn-spec'>Выйти</Button>

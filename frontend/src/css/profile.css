@@ -185,3 +185,6 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
 .css-1jqq78o-placeholder {
     font-weight: 400;
 }
+.container-fluid .row .col-lg-9 {
+    height: 100vh;
+}

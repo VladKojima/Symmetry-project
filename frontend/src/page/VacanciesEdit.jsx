@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import Select from "react-select";
-import NavbarStudent from "./component/NavbarStudent";
+import NavbarModerator from "./component/NavbarModerator";
 import card_img from "../img/cool-card.png";
 import './registr.css';
 import '../css/profile.css'; 
 
-function Vacancies() {
+function VacanciesEdit() {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedOption, setSelectedOption] = useState(null);
-    
+    const [vac, setVac] = useState('');
     const options = [
         { value: "option1", label: "Опция 1" },
         { value: "option2", label: "Опция 2" },
@@ -25,11 +25,25 @@ function Vacancies() {
         setSearchTerm(event.target.value);
     };
 
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/announcement`, {
+          method: 'GET'
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(res => setVac(res))
+          .catch(error => console.error('Error fetching films:', error));
+      }, [setVac]);
+
     return (
         <div className="container-fluid">
             <div className="row g-4">
                 <div className="col-lg-3 px-0">
-                    <NavbarStudent/>
+                    <NavbarModerator/>
                 </div>
                 <div className="col-lg-9">
                     <div className="row">
@@ -57,6 +71,28 @@ function Vacancies() {
                                 placeholder="Выберите теги"
                             />
                         </div>
+                        <div className="col-12">
+                           <Button className="w-100"><NavLink to='/vacancis/create'>Создать вакансию</NavLink></Button>
+                        </div>
+                        </div>
+                        <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4">
+                            {Array.isArray(vac) ? vac.map((f, index) => (
+                            <div className="col" key={index}>
+                                <div className="card">
+                                    <img src={card_img} className="card-img-top" alt="" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{f.header}</h5>
+                                        <p className="card-text">{f.needs}</p>
+                                        <div className="d-flex gap-2 flex-wrap mb-3">
+                                            <p className="m-0 badge">Аналитика</p>
+                                            <p className="m-0 badge">Java</p>
+                                            <p className="m-0 badge">React</p>
+                                            <p className="m-0 badge">Docker</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            )) : null}
                         </div>
                         <div className="row g-4">
                             <div className="col-lg-4">
@@ -71,7 +107,6 @@ function Vacancies() {
                                             <p className="m-0 badge">React</p>
                                             <p className="m-0 badge">Docker</p>
                                         </div>
-                                        <a href="#" className="btn btn-primary">Откликнуться</a>
                                     </div>
                                 </div>
                             </div>
@@ -82,6 +117,6 @@ function Vacancies() {
         </div>
     )
 }
-export default Vacancies;
+export default VacanciesEdit;
 
 
