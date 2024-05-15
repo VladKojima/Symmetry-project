@@ -16,6 +16,7 @@ import team.symmetry.ResumeBack.dto.Student.RegisterInfo;
 import team.symmetry.ResumeBack.exceptions.WrongDateException;
 import team.symmetry.ResumeBack.models.OtherInfo;
 import team.symmetry.ResumeBack.models.Student;
+import team.symmetry.ResumeBack.models.UniversityInfo;
 import team.symmetry.ResumeBack.repos.StudentRepo;
 import team.symmetry.ResumeBack.utils.EntityValidator;
 
@@ -43,11 +44,12 @@ public class StudentService {
                 .phone(student.getPhone())
                 .email(student.getEmail())
                 .telegram(student.getTelegram())
-                .skills(student.getSkills().stream().toList())
-                .tags(student.getTags().stream().toList())
-                .interests(student.getUniversityInfo().getInterests().stream().toList())
+                .skills(student.getSkills())
+                .tags(student.getTags())
+                .interests(student.getUniversityInfo().getInterests())
                 .aboutSelf(student.getOtherInfo().getAboutSelf())
                 .healthFeatures(student.getHealthFeatures())
+                .experiences(student.getOtherInfo().getWorkExperience())
                 .build();
 
     }
@@ -59,8 +61,12 @@ public class StudentService {
         Student student = studentRepo.findById(profile.getId()).orElseThrow();
 
         OtherInfo oInfo = student.getOtherInfo();
+        UniversityInfo uInfo = student.getUniversityInfo();
 
         oInfo.setAboutSelf(profile.getAboutSelf());
+        oInfo.setWorkExperience(profile.getExperiences());
+        
+        uInfo.setInterests(profile.getInterests());
 
         student.setPhotoPath(profile.getPhotoPath());
         student.setName(profile.getName());
@@ -71,6 +77,8 @@ public class StudentService {
         student.setEmail(profile.getEmail());
         student.setTelegram(profile.getTelegram());
         student.setHealthFeatures(profile.getHealthFeatures());
+        student.setSkills(profile.getSkills());
+        student.setTags(profile.getTags());
 
         studentRepo.save(student);
     }

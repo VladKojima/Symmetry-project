@@ -1,7 +1,7 @@
 package team.symmetry.ResumeBack.dto.Student;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +11,7 @@ import lombok.Data;
 import team.symmetry.ResumeBack.models.Interest;
 import team.symmetry.ResumeBack.models.Skill;
 import team.symmetry.ResumeBack.models.Tag;
+import team.symmetry.ResumeBack.models.WorkExperience;
 
 @Data
 @Builder
@@ -32,9 +33,10 @@ public class Profile {
     @Email
     private String email;
     private String telegram;
-    private List<Skill> skills;
-    private List<Tag> tags;
-    private List<Interest> interests;
+    private Set<Skill> skills;
+    private Set<Tag> tags;
+    private Set<Interest> interests;
+    private Set<WorkExperience> experiences;
     private String aboutSelf;
     private String healthFeatures;
 }
