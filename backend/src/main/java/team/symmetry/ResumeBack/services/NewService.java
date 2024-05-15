@@ -1,5 +1,7 @@
 package team.symmetry.ResumeBack.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,9 @@ public class NewService {
                         .tags(dto.getTags())
                         .moderator(moderatorRepo.findById(moderId).orElseThrow())
                         .build());
+    }
+
+    public List<New> getAll() {
+        return newRepo.findAll();
     }
 }

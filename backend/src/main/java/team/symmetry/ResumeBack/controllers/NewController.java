@@ -1,5 +1,7 @@
 package team.symmetry.ResumeBack.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,9 @@ import team.symmetry.ResumeBack.services.RoleService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -23,6 +28,12 @@ public class NewController {
 
     @Autowired
     RoleService roleService;
+
+    @GetMapping
+    public List<New> getAll(@RequestParam String param) {
+        return newService.getAll();
+    }
+    
     
     @PostMapping
     public New create(@RequestBody NewDTO dto) {
